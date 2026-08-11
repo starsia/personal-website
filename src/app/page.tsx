@@ -11,16 +11,16 @@ export default function Home() {
         {siteConfig.title}
       </h1>
       <p className="max-w-xl text-lg text-foreground/70">
-        NUS Computer Science graduate (2026) building and deploying
-        end-to-end full-stack applications, data pipelines, and cloud
-        infrastructure.
+        NUS Computer Science graduate (2026) building full-stack
+        applications and data pipelines — currently honing cloud
+        infrastructure as a specialty on top of that.
       </p>
       <div className="mt-2 flex flex-wrap gap-3">
         <Link
           href="/experience"
           className="rounded-full bg-foreground px-5 py-2.5 text-sm font-medium text-background transition-colors hover:opacity-90"
         >
-          View my work
+          View my experiences
         </Link>
         <Link
           href="/contact"

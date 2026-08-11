@@ -1,8 +1,8 @@
 export const siteConfig = {
   name: "Sia Zhong Qing",
-  title: "Software / Data / Cloud Engineer",
+  title: "Software & Data Engineer",
   description:
-    "Portfolio and blog of Sia Zhong Qing — NUS Computer Science graduate, software/data/cloud engineer.",
+    "Portfolio and blog of Sia Zhong Qing — NUS Computer Science graduate, software and data engineer building cloud infrastructure skills.",
   email: "starsia93@gmail.com",
   links: {
     github: "https://github.com/starsia",
