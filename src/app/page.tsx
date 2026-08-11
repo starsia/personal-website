@@ -1,9 +1,11 @@
 import Link from "next/link";
 import { siteConfig } from "@/lib/site-config";
+import { TopographicBackdrop } from "@/components/TopographicBackdrop";
 
 export default function Home() {
   return (
     <div className="flex flex-col gap-6">
+      <TopographicBackdrop />
       <p className="text-sm font-medium text-foreground/60">
         Hi, I&apos;m {siteConfig.name.split(" ")[0]}.
       </p>
