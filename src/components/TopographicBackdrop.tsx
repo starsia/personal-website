@@ -5,10 +5,17 @@ import { useEffect, useRef } from "react";
 type Point = [number, number];
 
 const CELL_SIZE = 22;
-const LEVELS = 9;
-const LEVEL_RANGE = 1.6;
+const LEVEL_RANGE = 1.2;
 const INDEX_EVERY = 4;
-const LABEL_SEGMENT_INTERVAL = 40;
+const LABEL_SEGMENT_INTERVAL = 50;
+
+// Contours are generated at fixed, round elevation values (multiples of
+// CONTOUR_INTERVAL, e.g. ...,-40,-20,0,20,40,...) rather than by dividing
+// LEVEL_RANGE evenly across a level count — that guarantees clean labels
+// (0, 20, 40, ...) no matter how LEVEL_RANGE is retuned later.
+const CONTOUR_INTERVAL = 20; // in label units (elevationLabel scale)
+const LABEL_SCALE = 100; // threshold * LABEL_SCALE = label value
+const CONTOUR_STEP = CONTOUR_INTERVAL / LABEL_SCALE;
 
 function baseHue(isDark: boolean) {
   return isDark
@@ -29,7 +36,7 @@ function levelStyle(levelIndex: number, isDark: boolean) {
 }
 
 function elevationLabel(threshold: number) {
-  return Math.round(threshold * 100).toString();
+  return Math.round(threshold * LABEL_SCALE).toString();
 }
 
 // Fixed phase offsets (arbitrary, just breaks up symmetry) since the field
@@ -215,10 +222,12 @@ export function TopographicBackdrop() {
         ? "rgba(10, 10, 10, 0.85)"
         : "rgba(255, 255, 255, 0.85)";
 
-      for (let l = 0; l < LEVELS; l++) {
-        const threshold = -LEVEL_RANGE + (l / (LEVELS - 1)) * LEVEL_RANGE * 2;
+      const maxK = Math.floor(LEVEL_RANGE / CONTOUR_STEP);
+
+      for (let k = -maxK; k <= maxK; k++) {
+        const threshold = k * CONTOUR_STEP;
         const { isIndexContour, color, lineWidth } = levelStyle(
-          l,
+          k,
           isDarkRef.current,
         );
         c.strokeStyle = color;
@@ -231,10 +240,10 @@ export function TopographicBackdrop() {
           threshold,
           isIndexContour
             ? {
-                text: elevationLabel(threshold),
-                textColor: `hsla(${hue}, ${saturation}%, ${lightness}%, 0.6)`,
-                haloColor,
-              }
+              text: elevationLabel(threshold),
+              textColor: `hsla(${hue}, ${saturation}%, ${lightness}%, 0.6)`,
+              haloColor,
+            }
             : undefined,
         );
       }
