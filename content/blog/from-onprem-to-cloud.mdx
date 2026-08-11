@@ -1,0 +1,18 @@
+---
+title: "From on-prem infra to cloud-native: early notes as a Cloud Engineer"
+date: "2026-08-05"
+excerpt: "A few months into provisioning VMware environments and writing Terraform, the gap between on-prem infrastructure and cloud-native thinking is smaller — and bigger — than I expected."
+tags: ["Cloud", "Terraform", "Infrastructure"]
+---
+
+Most of my Cloud Engineer work so far has been on-prem: VMware ESXi, Windows Server, VLAN segmentation, SQL Server backups. It's tempting to think of that as separate from "real" cloud engineering, but the overlap is bigger than the resume bullets suggest.
+
+## Where it overlaps
+
+Terraform doesn't care whether the resource it's provisioning is a VM on ESXi or an instance in a public cloud — the discipline is the same: describe infrastructure as code, review the diff, apply it, and let the state file be the source of truth instead of a runbook someone half-remembers.
+
+Monitoring is the same story. Grafana and CloudWatch dashboards exist so that infrastructure health is something you look at, not something you infer from a support ticket. That habit transfers directly to any cloud environment.
+
+## Where it doesn't
+
+What on-prem work doesn't give you for free is elasticity — the ability to provision and tear down capacity on demand instead of racking a server. That's the piece I'm most interested in building toward next, alongside picking up Spring Boot for the application layer on top of the infrastructure I'm already comfortable provisioning.

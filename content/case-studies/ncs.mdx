@@ -1,0 +1,32 @@
+---
+title: "Provisioning and monitoring on-prem cloud infrastructure at NCS"
+company: "NCS Pte Ltd"
+role: "Cloud Engineer"
+period: "2026–Present"
+excerpt: "Provisioning infrastructure with Terraform, monitoring it with Grafana and CloudWatch, and keeping virtualization, networking, and backups running for an IT infrastructure MNC."
+tags: ["Terraform", "Grafana", "CloudWatch", "VMware ESXi", "Windows Server", "Networking"]
+---
+
+## Problem
+
+NCS runs infrastructure for enterprise clients, and provisioning it by hand doesn't scale — every new environment needs to be reproducible, monitored, and recoverable without one engineer being the single point of knowledge.
+
+## My Role
+
+Cloud Engineer, responsible for provisioning, monitoring, and maintaining a mix of on-prem and cloud-adjacent infrastructure.
+
+## Approach
+
+- **Provisioning:** Used Terraform to provision resources as infrastructure-as-code rather than manual setup, so environments are reproducible and reviewable.
+- **Monitoring:** Implemented Grafana and CloudWatch so infrastructure health and performance are visible rather than discovered after something breaks.
+- **Virtualization:** Deployed and configured virtualization infrastructure on VMware ESXi, and handled day-to-day system administration across Windows Server environments.
+- **Networking:** Configured networking devices and VLAN segmentation to keep environments properly isolated.
+- **Data durability:** Installed and configured backups for SQL Server databases.
+
+## Outcome
+
+A more reproducible, observable infrastructure baseline — environments can be provisioned consistently, and issues surface through dashboards instead of support tickets.
+
+## What I'd improve next
+
+Push more of the Terraform configuration into version control with CI-driven plan/apply, and extend Grafana dashboards to cover the VMware layer, not just the workloads running on top of it.

@@ -1,0 +1,23 @@
+---
+title: "Building this site: what I actually learned about deployment"
+date: "2026-08-12"
+excerpt: "Notes from turning a blank folder into a deployed Next.js site — Turbopack workspace roots, class-based dark mode, and why CI checks matter even on Vercel."
+tags: ["Next.js", "Deployment", "Vercel"]
+---
+
+I graduated from NUS with a Computer Science degree and a resume full of infrastructure work — Terraform, VMware, Grafana — but almost none of it was deployment I'd driven end-to-end myself, on my own project, with my own choices to defend. This site was the excuse to close that gap.
+
+## The stack
+
+React and Node were already comfortable, so I built this with Next.js (App Router, TypeScript, Tailwind) and deployed it on Vercel. The goal wasn't to pick the most exotic stack — it was to get a real deploy pipeline running end-to-end and understand every step of it, rather than trusting a "just works" button.
+
+## What actually went wrong
+
+The scaffolding step alone taught me more than I expected:
+
+- **A stray lockfile in my home directory confused Turbopack's workspace-root detection**, and the fix was one line in `next.config.ts` (`turbopack.root`) — but finding *that* line required reading the actual error message instead of assuming the framework was broken.
+- **Dark mode needed a deliberate decision.** Tailwind v4 defaults to `prefers-color-scheme`; getting a manual toggle that doesn't flash the wrong theme on load meant a small inline script running before hydration, via `next/script` with `beforeInteractive`.
+
+## What's next
+
+The next deployment lesson is a different one: Vercel handles push-to-deploy well, but it's *not* Docker, container registries, or provisioning a host. That's the reason a small Spring Boot service is next on the list — see the [Learning Log](/learning-log) for where that's headed.
