@@ -1,0 +1,86 @@
+---
+title: "Learning Terraform, an IaC"
+date: "2026-08-04"
+excerpt: "Understood the need for such a tool and wrote syntax by hand using the docs: Resources, Modules, Locals, Tfvars and variables.tf."
+tags: ["Terraform", "Cloud", "IaC"]
+---
+
+Worked through Terraform fundamentals and documentation. The hands-on focus was on Resources, Modules, Locals, tfvars and variables.tf — I read the docs and wrote most of the syntax by hand to internalize patterns.
+
+Reference repository: https://github.com/starsia/terraform-playground
+
+What I did
+
+- Resources: created basic resources (S3 buckets, IAM bindings, and a small CDN) to understand lifecycle, dependencies, and interpolation.
+- Modules: extracted reusable pieces (an s3-static-site module and a small network module) to practice input/output contracts and versioning. Called from the root module.
+- Locals: used locals to compute names, tags, and derived values to keep modules tidy.
+- variables.tf + tfvars: declared typed variables, defaults, and used a terraform.tfvars file for environment-specific values.
+- Workflow: ran terraform init → plan → apply, used workspaces for dev/staging, and validated with terraform fmt and terraform validate.
+
+What I learned
+
+- Terraform is a way to detect, not prevent configuration drift (it's still possible to change it from the cloud provider console). When the code is the single source of truth, everyone can amend the infrastructure since state is compared with the real infrastructure.
+- We start with a root module, which contains .tf files like variables.tf (where you define the types), main.tf (where you declare your modules) and output.tf (what you want to output).
+- .tfvars assigns values to variables declared in variables.tf. locals.tf defines computed/derived values (e.g., combining a prefix + environment + resource type into a name string) that you reuse within the module. Locals don't populate variables. We can have other files like .tfvars or locals.tf to populate the values that have been defined in variables.tf
+- For standardisation, a module folder is used to store possible modules created. It's meant to be modular.
+- Within a module folder, we have its own main.tf, where we declare the resources that make up the module. It can be EC2 instances, Transit Gateways, WAF, you name it.
+- We can retrieve the values from the modules we want to provision by defining the module's output.tf. This is useful when we want to get IDs.
+- Naming values are passed in as variables from the root module (validated against the type constraints in variables.tf), then often combined into a consistent name string via locals.
+
+Key snippets
+
+variables.tf
+
+```hcl
+variable "env" {
+  type    = string
+  default = "dev"
+}
+
+variable "bucket_name" {
+  type = string
+}
+```
+
+terraform.tfvars (example)
+
+```hcl
+bucket_name = "starsia-website-${var.env}"
+```
+
+locals example
+
+```hcl
+locals {
+  tags = {
+    owner = "starsia"
+    env   = var.env
+  }
+}
+```
+
+module usage example
+
+```hcl
+module "static_site" {
+  source      = "../modules/s3-static-site"
+  bucket_name = var.bucket_name
+  tags        = local.tags
+}
+```
+
+Lessons learned
+
+- Official docs and writing by hand was useful.
+- Keep state and locking in mind: remote state (S3 + DynamoDB for locking) is important even for small projects to avoid accidental destruction.
+- Use formatting and validation (terraform fmt, terraform validate) early and often; they catch tiny mistakes before plan/apply.
+- Modules are powerful but benefit from a strict input/output contract and good defaults — make sensible defaults in variables.tf and keep required inputs explicit.
+
+Next steps
+
+- Add CI checks (terraform fmt, validate, and tflint) on PRs.
+- Move state to a remote backend with locking for any collaborative work.
+- Publish the most useful modules to a registry or the repo's module directory so other projects can consume them.
+- Explore secrets management (e.g., SSM/Secret Manager) for provider credentials and sensitive variables.
+
+Overall: Understood the need for such a tool and wrote syntax by hand using the docs: Resources, Modules, Locals, Tfvars and variables.tf. This exercise made the IaC patterns concrete and gave a good baseline for automating future deployments.
