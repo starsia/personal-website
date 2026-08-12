@@ -7,15 +7,14 @@ export default function Home() {
     <div className="flex flex-col gap-6">
       <TopographicBackdrop />
       <p className="text-sm font-medium text-foreground/60">
-        Hi, I&apos;m {siteConfig.name.split(" ")[0]}.
+        Hi, I&apos;m {siteConfig.firstName}.
       </p>
       <h1 className="text-4xl font-semibold tracking-tight sm:text-5xl">
         {siteConfig.title}
       </h1>
       <p className="max-w-xl text-lg text-foreground/70">
-        NUS Computer Science graduate (2026) building full-stack
-        applications and data pipelines — currently honing cloud
-        infrastructure as a specialty on top of that.
+        Built full-stack applications, data pipelines and AI interfaces.
+        Mastering cloud infrastructure and operations.
       </p>
       <div className="mt-2 flex flex-wrap gap-3">
         <Link

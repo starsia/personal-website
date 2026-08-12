@@ -12,8 +12,7 @@ export default function ExperiencePage() {
       <h1 className="text-2xl font-semibold tracking-tight">Experience</h1>
       <p className="mt-4 max-w-2xl text-foreground/70">
         Case studies in software and data engineering, plus the cloud
-        infrastructure work I&apos;m currently building depth in as a
-        specialty.
+        infrastructure work I&apos;m currently trying to be better at.
       </p>
 
       <div className="mt-10 flex flex-col gap-8">
