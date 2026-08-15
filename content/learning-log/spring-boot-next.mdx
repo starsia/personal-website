@@ -1,17 +1,17 @@
 ---
-title: "Next up: a small Spring Boot service, deployed the hard way"
-date: "2026-08-12"
-excerpt: "Planning a standalone Spring Boot API, containerized with Docker and deployed to a real host — a deliberately different deployment model from this site's Vercel setup."
-tags: ["Java", "Spring Boot", "Docker"]
+title: "Deploying to a VPS and adding Spring Boot"
+date: "2026-08-23"
+excerpt: "Planning a standalone Spring Boot API, containerized with Docker and deployed to a host."
+tags: ["Java", "Spring Boot", "Docker", "VPS"]
 ---
 
-This site's deployment story is push-to-deploy on Vercel — convenient, but it hides most of the actual infrastructure work behind a dashboard. The next project is meant to expose that work instead of hiding it.
+This site's current deployment pipeline is push-to-deploy on Vercel. It's convenient, but it hides most of the actual infrastructure work behind a dashboard. The next project is meant to expose that work so I can understand it deeply.
 
 ## The plan
 
-A small standalone Spring Boot API — Java is already on my resume, Spring Boot isn't yet. Scope stays intentionally small: one or two endpoints, enough to be real rather than a "Hello World."
+A small standalone Spring Boot API containing one or two endpoints.
 
-Deployment target is deliberately **not** Vercel. Containerize it with Docker, push to a registry, and deploy to a real host (Fly.io, Render, or an AWS free-tier box) — closer to the provisioning work I already do at NCS, just for an application I built end-to-end myself.
+Containerize it with Docker, push to a registry, and deploy to a real host like Fly.io, Render, or an AWS free-tier box.
 
 ## Why this, why now
 

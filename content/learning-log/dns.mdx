@@ -11,8 +11,8 @@ I wanted to try my hand at deployments instead of hosting my website on Github. 
 
 What I did
 
-- Records: Know what adding CNAME and A records does.
-- Nameservers: Retain Namesilo name servers instead of using Vercel's name servers.
+- Add Records: Figure out what adding CNAME and A records really does
+- Nameservers: Figure out when I should be keeping Namesilo name servers instead of using Vercel's name servers
 - Dig: Checked status of DNS propagations
 - Ran whatsmydns.net: To find out why running dig on my terminal resolved to the wrong domain; check locally if my DNS changes have finished propagating
 - Ran nslookup: To check which name servers is my domain using
@@ -21,17 +21,21 @@ What I learned
 
 - I always understood from class that Domain Name Systems were the 'thing' that maps domain names to the IP addresses of the actual web server. (Domain names are part of URLs, and are not the same!) After some research, I realised they include steps like DNS name resolution and has a DNS recursor to query various name servers to figure out the actual IP address.
 - There are many similar sounding names: Domain registry, domain registrar, domain provider, name server, DNS providers, etc.
-- A **domain name registry** service such as Verisign operates one of the global internet root servers. The DNS root zone is the authoritative mapping database that contains information to find top-level domains using root servers. Other root server operators also exist, like ICANN and IANA.
-- A **domain registrar** is an accredited organisation that sells domain names to the public. Some of them have the ability to sell TLD names like .com and .net. Common ones are like GoDaddy, Namecheap and Hostinger.
+- A **Domain Name Registry** service such as Verisign operates one of the global internet root servers. The DNS root zone is the authoritative mapping database that contains information to find top-level domains using root servers. Other root server operators also exist, like ICANN and IANA.
+- A **Domain Registrar** is an accredited organisation that sells domain names to the public. Some of them have the ability to sell TLD names like .com and .net. Common ones are like GoDaddy, Namecheap and Hostinger.
 - A **DNS Host** or **DNS Provider** is the company that runs the name servers where your domain's DNS records live. They are the specific servers that answer what is the IP address for this domain, ~~when the DNS comes looking~~. The DNS host doesn't store website files but more of **instructions** that tell the internet where to find your address.
 - The **Web Host/Provider** actually stores my website files. When the browser resolves the domain name to an IP, it connects to a web server, which is provided by the web host. Types of hosting include shared web hosting, wordpress, and VPS on something like Hetzner.
 - Name servers store DNS records. When you want to change a DNS record, you'll have to change them on each name server.
-- There are many types of DNS records. What are they?
-  - A records: They point a domain to an IPv4 address.  If I need to point to an IPv6, we use AAAA records.
-  - CNAME records: Associate subdomain to the primary/canonical domain. 'www' is an example of a subdomain, and we associate it with zhongqingsia.com.
-  - MX records: Associate domain with email service.
-- So when I enter a URL, the search for the IP address starts by using a recursive resolver, which may have an answer cached. If it doesn't, we can identify the DNS server it needs to query. In this case, it's the DNS-owl stuff we saw! If it doesn't have an answer cached, we send the query to the root server, which we can tell via the .com or .net or whatever root domain it is from.
-- Let's say I registered my domain with NameSilo, and then I add Cloudflare's name servers to my NameSilo account. I change a DNS record for that domain on NameSilo. My change won't do anything since the domain is no longer using NameSilo's name servers. If I make the same DNS record change at Cloudflare, it will work because the domain is using Cloudflare's name servers!
+- There are many types of DNS records, but I didn't include all:
+  - A records: They point a domain to an IPv4 address.  If I need to point to an IPv6, we use AAAA records
+  - CNAME records: Associate subdomain to the primary/canonical domain. 'www' is an example of a subdomain, and we associate it with zhongqingsia.com
+  - MX records: Associate domain with email service
+  - TXT records: Help to prevent your emails with your domain name getting sent to spam
+
+Some scenarios
+
+- Illustrating a portion of DNS: When I enter a URL, the search for the IP address starts by using a recursive resolver, which may have an answer cached. If it doesn't, we can identify the DNS server it needs to query. If it doesn't have an answer cached, we send the query to the root server, which we can tell via the .com or .net or whatever root domain it is from.
+- Illustrating name servers: If I registered my domain with NameSilo, and then I add Cloudflare's name servers to my NameSilo account. I change a DNS record for that domain on NameSilo. My change won't do anything since the domain is no longer using NameSilo's name servers. If I make the same DNS record change at Cloudflare, it will work because the domain is using Cloudflare's name servers!
 - DNSSEC and TTLs
 
 Lessons learned
@@ -45,8 +49,8 @@ Next steps
 - Deploy it on a VPS that I have finished setting up and hardened.
 
 Credit to the incredibly helpful references here that helped understand things on a deeper level:
-1. https://kinsta.com/blog/what-is-dns/
-2. https://www.godaddy.com/en/help/what-is-the-difference-between-a-registry-registrar-and-registrant-8039
-3. https://www.verisign.com/what-we-do/what-is-the-dns/
-4. https://www.verisign.com/what-we-do/what-is-a-url/
-5. https://stw.no/en/tutorials/dns/dns-players/
+1. [https://kinsta.com/blog/what-is-dns/](https://kinsta.com/blog/what-is-dns/)
+2. [https://www.godaddy.com/en/help/what-is-the-difference-between-a-registry-registrar-and-registrant-8039](https://www.godaddy.com/en/help/what-is-the-difference-between-a-registry-registrar-and-registrant-8039)
+3. [https://www.verisign.com/what-we-do/what-is-the-dns/](https://www.verisign.com/what-we-do/what-is-the-dns/)
+4. [https://www.verisign.com/what-we-do/what-is-a-url/](https://www.verisign.com/what-we-do/what-is-a-url/)
+5. [https://stw.no/en/tutorials/dns/dns-players/](https://stw.no/en/tutorials/dns/dns-players/)
