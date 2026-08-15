@@ -13,8 +13,11 @@ export default function Home() {
         {siteConfig.title}
       </h1>
       <p className="max-w-xl text-lg text-foreground/70">
-        Built full-stack applications, data pipelines and AI interfaces.
-        Mastering cloud infrastructure and operations.
+        I enjoy building software that works and creates value. My expertise lies in developing full-stack applications, data pipelines and AI interfaces.
+
+        I currently am strengthening my skills in cloud infrastructure and operations for reliable and safe deployment.
+      </p>
+      <p className="max-w-xl text-lg text-foreground/70">
       </p>
       <div className="mt-2 flex flex-wrap gap-3">
         <Link

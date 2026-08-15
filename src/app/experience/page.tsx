@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { getAllCaseStudies } from "@/lib/content";
 
+
 export const metadata: Metadata = { title: "Experience" };
 
 export default function ExperiencePage() {
@@ -11,8 +12,7 @@ export default function ExperiencePage() {
     <div>
       <h1 className="text-2xl font-semibold tracking-tight">Experience</h1>
       <p className="mt-4 max-w-2xl text-foreground/70">
-        Case studies in software and data engineering, plus the cloud
-        infrastructure work I&apos;m currently trying to be better at.
+        My past experiences in software, data engineering and cloud infrastructure.
       </p>
 
       <div className="mt-10 flex flex-col gap-8">
