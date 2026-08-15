@@ -1,87 +1,52 @@
 ---
-title: "Understanding DNS deeply"
+title: "A deeper look into DNS"
 date: "2026-08-15"
-excerpt: "Connecting website deployments to domain names: CNAMEs, DNS and Name Servers."
-tags: ["DNS", "Records", "Nameservers"]
+excerpt: "Bridging website deployments to domain names: CNAMEs, DNS and Name Servers."
+tags: ["DNS", "CNAME", "TLD"]
 ---
 
-4 years ago in 2022, I bought a domain name, set up a personal website using bootstrap and linked my github page to my domain provider, NameSilo. I remember all I did was to add a CNAME record and an A record. Honestly, I barely knew what I was doing, I simply followed instructions and prayed that with whatever magic called DNS propagation it would work a few hours later. (Yes, I refreshed my page many times.)
+4 years ago in 2023, I bought a domain name, built up a personal website using bootstrap and linked my Github page to my domain provider, NameSilo. I remember all I had to do was to add a CNAME record and an A record on my domain provider. To be honest, I barely knew what I was doing, I followed a bunch of instructions from a Youtube video and prayed that with this thing called DNS propagation it would work a few hours later. (Yes, I refreshed my page many times.) Everything I learned in networking class felt theoretical, and trying it felt like I was feeling around in the dark.
 
-Now, I've converted to a Vercel deployment, as an upgrade instead of hosting my website on Github. I did not want to keep the url that Vercel made for me, why not use the domain I had? This led me down a rabbit hole of networking.
+I wanted to try my hand at deployments instead of hosting my website on Github. And after doing so on Vercel, I did not like using the URL that it had made for me. Why not use the domain I already had? This time, I had no excuses. I had to know what was happening below the hood.
 
 What I did
 
-- Resources: created basic resources (S3 buckets, IAM bindings, and a small CDN) to understand lifecycle, dependencies, and interpolation.
-- Modules: extracted reusable pieces (an s3-static-site module and a small network module) to practice input/output contracts and versioning. Called from the root module.
-- Locals: used locals to compute names, tags, and derived values to keep modules tidy.
-- variables.tf + tfvars: declared typed variables, defaults, and used a terraform.tfvars file for environment-specific values.
-- Workflow: ran terraform init → plan → apply, used workspaces for dev/staging, and validated with terraform fmt and terraform validate.
+- Records: Know what adding CNAME and A records does.
+- Nameservers: Retain Namesilo name servers instead of using Vercel's name servers.
+- Dig: Checked status of DNS propagations
+- Ran whatsmydns.net: To find out why running dig on my terminal resolved to the wrong domain; check locally if my DNS changes have finished propagating
+- Ran nslookup: To check which name servers is my domain using
 
 What I learned
 
-- I always understood Domain Name Servers to be place that converts IP addresses to domain names. That saves remembering numbers to get to places you want to be. I know more that they are authoritative. That means
+- I always understood from class that Domain Name Systems were the 'thing' that maps domain names to the IP addresses of the actual web server. (Domain names are part of URLs, and are not the same!) After some research, I realised they include steps like DNS name resolution and has a DNS recursor to query various name servers to figure out the actual IP address.
+- There are many similar sounding names: Domain registry, domain registrar, domain provider, name server, DNS providers, etc.
+- A **domain name registry** service such as Verisign operates one of the global internet root servers. The DNS root zone is the authoritative mapping database that contains information to find top-level domains using root servers. Other root server operators also exist, like ICANN and IANA.
+- A **domain registrar** is an accredited organisation that sells domain names to the public. Some of them have the ability to sell TLD names like .com and .net. Common ones are like GoDaddy, Namecheap and Hostinger.
+- A **DNS Host** or **DNS Provider** is the company that runs the name servers where your domain's DNS records live. They are the specific servers that answer what is the IP address for this domain, ~~when the DNS comes looking~~. The DNS host doesn't store website files but more of **instructions** that tell the internet where to find your address.
+- The **Web Host/Provider** actually stores my website files. When the browser resolves the domain name to an IP, it connects to a web server, which is provided by the web host. Types of hosting include shared web hosting, wordpress, and VPS on something like Hetzner.
 - Name servers store DNS records. When you want to change a DNS record, you'll have to change them on each name server.
-- We start with a root module, which contains .tf files like variables.tf (where you define the types), main.tf (where you declare your modules) and output.tf (what you want to output).
-- .tfvars assigns values to variables declared in variables.tf. locals.tf defines computed/derived values (e.g., combining a prefix + environment + resource type into a name string) that you reuse within the module. Locals don't populate variables. We can have other files like .tfvars or locals.tf to populate the values that have been defined in variables.tf
-- For standardisation, a module folder is used to store possible modules created. It's meant to be modular.
-- Within a module folder, we have its own main.tf, where we declare the resources that make up the module. It can be EC2 instances, Transit Gateways, WAF, you name it.
-- We can retrieve the values from the modules we want to provision by defining the module's output.tf. This is useful when we want to get IDs.
-- Naming values are passed in as variables from the root module (validated against the type constraints in variables.tf), then often combined into a consistent name string via locals.
-
-Key snippets
-
-variables.tf
-
-```hcl
-variable "env" {
-  type    = string
-  default = "dev"
-}
-
-variable "bucket_name" {
-  type = string
-}
-```
-
-terraform.tfvars (example)
-
-```hcl
-bucket_name = "starsia-website-${var.env}"
-```
-
-locals example
-
-```hcl
-locals {
-  tags = {
-    owner = "starsia"
-    env   = var.env
-  }
-}
-```
-
-module usage example
-
-```hcl
-module "static_site" {
-  source      = "../modules/s3-static-site"
-  bucket_name = var.bucket_name
-  tags        = local.tags
-}
-```
+- There are many types of DNS records. What are they?
+  - A records: They point a domain to an IPv4 address.  If I need to point to an IPv6, we use AAAA records.
+  - CNAME records: Associate subdomain to the primary/canonical domain. 'www' is an example of a subdomain, and we associate it with zhongqingsia.com.
+  - MX records: Associate domain with email service.
+- So when I enter a URL, the search for the IP address starts by using a recursive resolver, which may have an answer cached. If it doesn't, we can identify the DNS server it needs to query. In this case, it's the DNS-owl stuff we saw! If it doesn't have an answer cached, we send the query to the root server, which we can tell via the .com or .net or whatever root domain it is from.
+- Let's say I registered my domain with NameSilo, and then I add Cloudflare's name servers to my NameSilo account. I change a DNS record for that domain on NameSilo. My change won't do anything since the domain is no longer using NameSilo's name servers. If I make the same DNS record change at Cloudflare, it will work because the domain is using Cloudflare's name servers!
+- DNSSEC and TTLs
 
 Lessons learned
 
-- Official docs and writing by hand was useful.
-- Keep state and locking in mind: remote state (S3 + DynamoDB for locking) is important even for small projects to avoid accidental destruction.
-- Use formatting and validation (terraform fmt, terraform validate) early and often; they catch tiny mistakes before plan/apply.
-- Modules are powerful but benefit from a strict input/output contract and good defaults — make sensible defaults in variables.tf and keep required inputs explicit.
+- Know what CNAME and A records are and what changing them really does.
+- Knowing why I didn't have to update my name servers on my domain provider to be the Vercel one
 
 Next steps
 
-- Add CI checks (terraform fmt, validate, and tflint) on PRs.
-- Move state to a remote backend with locking for any collaborative work.
-- Publish the most useful modules to a registry or the repo's module directory so other projects can consume them.
-- Explore secrets management (e.g., SSM/Secret Manager) for provider credentials and sensitive variables.
+- Shift off Vercel to remove the deployment and backend abstraction.
+- Deploy it on a VPS that I have finished setting up and hardened.
 
-Overall: Understood the need for such a tool and wrote syntax by hand using the docs: Resources, Modules, Locals, Tfvars and variables.tf. This exercise made the IaC patterns concrete and gave a good baseline for automating future deployments.
+Credit to the incredibly helpful references here that helped understand things on a deeper level:
+1. https://kinsta.com/blog/what-is-dns/
+2. https://www.godaddy.com/en/help/what-is-the-difference-between-a-registry-registrar-and-registrant-8039
+3. https://www.verisign.com/what-we-do/what-is-the-dns/
+4. https://www.verisign.com/what-we-do/what-is-a-url/
+5. https://stw.no/en/tutorials/dns/dns-players/
