@@ -1,5 +1,5 @@
 export const profileSummary =
-  "Software Engineer with a desire to create value and impact. I have depth in database systems, from query tuning and data modelling with a focus on performance optimization. I have an strong understanding of denormalisation, indexing, and how transactions are made safe and reliable in relational databases. I have experience in data engineering pipelines including noSQL, architecting cloud infrastructure, and container orchestration alongside my full-stack skills. Strong interest in safe and reliable systems that reduce toil. Curious and proactive with strong presentation skills.";
+  "Software Engineer with a desire to create value and impact. I specialise in database systems. I enjoy designing fast and efficient queries based on fundamentals in query tuning, data modelling techniques, denormalisation, and transactions in relational databases. Strong interest in safe and reliable systems that reduce toil. Curious and proactive with strong presentation skills.";
 
 export const skillGroups = [
   {
