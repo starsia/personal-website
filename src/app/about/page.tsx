@@ -44,23 +44,27 @@ export default function AboutPage() {
         <h2 className="text-sm font-medium uppercase tracking-wide text-foreground/50">
           Education
         </h2>
-        <div className="mt-4">
-          <p className="font-medium">{education.school}</p>
-          <p className="text-sm text-foreground/70">
-            {education.degree} · {education.period}
-          </p>
-          <div className="mt-3 flex flex-wrap gap-2">
-            {education.courses.map((course) => (
-              <span
-                key={course}
-                className="rounded-full border border-foreground/15 px-3 py-1 text-xs text-foreground/70"
-              >
-                {course}
-              </span>
-            ))}
-          </div>
+        <div className="mt-4 flex flex-col gap-6">
+          {education.map((institution) => (
+            <div key={institution.school}>
+              < p className="font-medium" > {institution.school}</p>
+              <p className="text-sm text-foreground/70">
+                {institution.degree} · {institution.period}
+              </p>
+              <div className="mt-3 flex flex-wrap gap-2">
+                {institution.courses.map((course) => (
+                  <span
+                    key={course}
+                    className="rounded-full border border-foreground/15 px-3 py-1 text-xs text-foreground/70"
+                  >
+                    {course}
+                  </span>
+                ))}
+              </div>
+            </div>))
+          }
         </div>
-      </section>
+      </section >
 
       <section>
         <h2 className="text-sm font-medium uppercase tracking-wide text-foreground/50">
@@ -91,6 +95,6 @@ export default function AboutPage() {
           ))}
         </ul>
       </section>
-    </div>
+    </div >
   );
 }

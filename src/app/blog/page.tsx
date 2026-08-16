@@ -11,8 +11,10 @@ export default function BlogPage() {
     <div>
       <h1 className="text-2xl font-semibold tracking-tight">Blog</h1>
       <p className="mt-4 max-w-2xl text-foreground/70">
-        Write-ups on cloud/data engineering, and reflections on building
-        things.
+        Reflections on building things.
+      </p>
+      <p className="mt-4 max-w-2xl text-foreground/70">
+        My reflections represent my personal opinions and do not reflect the views of my employer.
       </p>
       <PostListing posts={posts} basePath="/blog" />
     </div>

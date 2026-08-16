@@ -1,12 +1,17 @@
 ---
-title: "Shipped v1 of this site — Next.js on Vercel"
-date: "2026-08-12"
-excerpt: "Scaffolded, built, and deployed the site itself: Next.js App Router, Tailwind v4, MDX-driven content, GitHub Actions for CI, Vercel for hosting."
+title: "Shipped this site using Next.js on Vercel"
+date: "2026-08-01"
+excerpt: "Building a full-stack pipeline from start to finish."
 tags: ["Next.js", "Vercel", "CI/CD"]
 ---
 
-Built the site you're reading this on: Next.js (App Router, TypeScript), Tailwind v4, MDX for case studies and posts, deployed to Vercel with GitHub Actions running lint/typecheck/tests on every PR before merge.
+In August 2026, I've finished building the site you might be reading this on. It's build with a few tools:
+- Next.js with the App Router
+- Written in TypeScript and CSS is managed by Tailwind v4
+- Blogs and essays are managed by MDX
+- CI pipelines use GitHub Actions running lint/typecheck/tests on every PR before merge
+- Deployed to Vercel
 
-Biggest actual lesson: Vercel's push-to-deploy makes the *deployment* step nearly invisible, which is convenient but means most of the real learning happened in getting the build to work correctly in the first place (Turbopack workspace-root resolution, class-based dark mode without a flash-of-wrong-theme).
+Currently, most of the real learning happened in getting the build to work correctly in the first place (Turbopack workspace-root resolution, class-based dark mode).
 
-Next: this only exercises one deployment model. Want a second one that's more hands-on — see the Spring Boot entry below.
+I do want to try out other deployment models that are more granular, so you can look out for a future Spring Boot project deployed on a VPS.

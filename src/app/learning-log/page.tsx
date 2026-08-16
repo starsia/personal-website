@@ -11,8 +11,8 @@ export default function LearningLogPage() {
     <div>
       <h1 className="text-2xl font-semibold tracking-tight">Learning Log</h1>
       <p className="mt-4 max-w-2xl text-foreground/70">
-        A dated log of what I&apos;m currently learning — deployment
-        practices, Spring Boot, and whatever comes after this site.
+        A dated log of what I&apos;m currently learning. From deployment
+        practices, Spring Boot, and whatever outside of this site.
       </p>
       <PostListing posts={entries} basePath="/learning-log" />
     </div>

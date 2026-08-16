@@ -1,5 +1,5 @@
 export const profileSummary =
-  "Software Engineer with a desire to create value and impact. Experienced in building and deploying end-to-end full-stack applications, ETL data pipelines and on-premise infrastructure. Competent in database design, with hands-on exposure to container orchestration and CI/CD practices. Strong interest in system reliability and scalable backend systems. Curious and independent with strong presentation skills.";
+  "Software Engineer with a desire to create value and impact. Experienced in building and deploying end-to-end full-stack applications, ETL pipelines and cloud infrastructure. Competent in database design, with hands-on exposure to container orchestration and CI/CD. Strong interest in safe and reliable systems. Curious and independent with strong presentation skills.";
 
 export const skillGroups = [
   {
@@ -71,27 +71,42 @@ export const coCurriculars = [
   "Captain of the NUS College Climbing Club, planning weekly activities for 55 members",
 ] as const;
 
-export const education = {
+export const education = [{
   school: "National University of Singapore (NUS)",
   degree: "Bachelor of Computing in Computer Science, NUS College",
   period: "2022–2026",
   courses: [
     "Software Engineering Principles and Patterns",
+    "Design and Analysis of Algorithms",
+    "Introduction to AI and Machine Learning",
     "Operating Systems",
+    "Computer Organisation",
     "Database Systems Implementation",
     "Big Data Systems for Data Science",
-    "Data Structures and Algorithms",
     "Database Applications Design and Tuning",
     "Internet Architecture",
-    "GIS",
+    "Introduction to Computer Networks",
+    "Programming Methodology II (OOP)",
+    "Linear Algebra",
+    "Discrete Structures",
+    "Calculus for Computing",
+    "Probability and Statistics",
+    "Digital Privacy and Ethics",
+    "GIS Design and Practices",
+    "Introduction to GIS",
     "Solving Energy and Environmental Problems",
+  ],},
+  {
+  school: "Institut National des Sciences Appliquées de Lyon (INSA)",
+  degree: "Department of Computer Science, Department of Telecommunications",
+  period: "2025-2025",
+  courses: [
     "Foundations of Data Engineering",
     "Deep Learning",
     "Distributed Systems and Middleware",
     "Data Mining",
-    "Network Engineering",
-  ],
-} as const;
+    "Network Engineering",]
+  }] as const;
 
 export const experiences = [
   {
@@ -119,6 +134,6 @@ export const experiences = [
     period: "2022",
     location: "Singapore",
     blurb: "Public agency responsible for environmental policy and management in Singapore.",
-    tags: ["Analytics Dashboard", "Qlik Sense", "GIS", "Database Design"],
+    tags: ["Analytics Dashboard", "Qlik Sense"],
   },
 ] as const;
