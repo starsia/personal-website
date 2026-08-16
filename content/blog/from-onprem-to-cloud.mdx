@@ -1,18 +1,20 @@
 ---
-title: "From on-prem infra to cloud-native: early notes as a Cloud Engineer"
+title: "Early notes as a Cloud Engineer"
 date: "2026-08-05"
-excerpt: "A few months into provisioning VMware environments and writing Terraform, the gap between on-prem infrastructure and cloud-native thinking is smaller — and bigger — than I expected."
-tags: ["Cloud", "Terraform", "Infrastructure"]
+excerpt: "From provisioning VMware environments, creating VLANs on PuTTY, and backups on SQL Server to writing Terraform"
+tags: ["Cloud", "Terraform", "On-Premise"]
 ---
 
-Most of my Cloud Engineer work so far has been on-prem: VMware ESXi, Windows Server, VLAN segmentation, SQL Server backups. It's tempting to think of that as separate from "real" cloud engineering, but the overlap is bigger than the resume bullets suggest.
+Most of my Infrastructure Engineer work began on-prem: VMware ESXi, Windows Server, VLAN segmentation, SQL Server backups. I recognised that learning them well, underpinned most of the cloud infrastructure we see today.
 
 ## Where it overlaps
 
-Terraform doesn't care whether the resource it's provisioning is a VM on ESXi or an instance in a public cloud — the discipline is the same: describe infrastructure as code, review the diff, apply it, and let the state file be the source of truth instead of a runbook someone half-remembers.
+Terraform allows modular provisioning regardless if it is a VM on ESXi or an instance in a public cloud. Infrastructure as code allows a single source of truth rather than relying on run-books and siloed information.
 
-Monitoring is the same story. Grafana and CloudWatch dashboards exist so that infrastructure health is something you look at, not something you infer from a support ticket. That habit transfers directly to any cloud environment.
+Grafana and CloudWatch dashboards exist so that we can monitor infrastructure health, which is necessary in both environments.
 
-## Where it doesn't
+Going into a VM in a VLAN and setting up a DNS server gives you a deep appreciation for the amount of steps that Terraform and cloud has saved.
 
-What on-prem work doesn't give you for free is elasticity — the ability to provision and tear down capacity on demand instead of racking a server. That's the piece I'm most interested in building toward next, alongside picking up Spring Boot for the application layer on top of the infrastructure I'm already comfortable provisioning.
+## Where it doesn't overlap
+
+On-prem work doesn't really provide elasticity. In cloud, we have the ability to provision and tear down capacity on demand instead of racking a server. However, the ability to see different granularities still matter for things to be done and done well.
