@@ -1,5 +1,5 @@
 export const profileSummary =
-  "Software Engineer with a desire to create value and impact. Experienced in building and deploying end-to-end full-stack applications, ETL pipelines and cloud infrastructure. Competent in database design, with hands-on exposure to container orchestration and CI/CD. Strong interest in safe and reliable systems. Curious and independent with strong presentation skills.";
+  "Software Engineer with a desire to create value and impact. I have depth in database systems, from query tuning and data modelling with a focus on performance optimization. I have an strong understanding of denormalisation, indexing, and how transactions are made safe and reliable in relational databases. I have experience in data engineering pipelines including noSQL, architecting cloud infrastructure, and container orchestration alongside my full-stack skills. Strong interest in safe and reliable systems that reduce toil. Curious and proactive with strong presentation skills.";
 
 export const skillGroups = [
   {
@@ -19,11 +19,13 @@ export const skillGroups = [
       "REST APIs",
       "Drizzle ORM",
       "Tailwind",
+      "Django",
+      "Spring Boot"
     ],
   },
   {
     category: "Databases",
-    skills: ["PostgreSQL", "SQL Server", "MongoDB", "Redis", "Supabase", "Firebase"],
+    skills: ["PostgreSQL", "SQL Server", "MongoDB", "Redis", "Supabase", "Firebase", "Neo4j"],
   },
   {
     category: "Data Engineering",
@@ -87,11 +89,16 @@ export const education = [{
     "Internet Architecture",
     "Introduction to Computer Networks",
     "Programming Methodology II (OOP)",
+    "Programming Methodology I",
+    "Effective Communication for Computing Professionals",
+    "Software Engineering",
+    "Database Systems",
     "Linear Algebra",
     "Discrete Structures",
     "Calculus for Computing",
+    "Quantitative Reasoning with Data",
     "Probability and Statistics",
-    "Digital Privacy and Ethics",
+    "Digital and AI Ethics",
     "GIS Design and Practices",
     "Introduction to GIS",
     "Solving Energy and Environmental Problems",

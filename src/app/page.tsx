@@ -16,6 +16,10 @@ export default function Home() {
         I enjoy building software that works and creates value. My expertise lies in developing full-stack applications, data pipelines and AI interfaces.
 
         I currently am strengthening my skills in cloud infrastructure and operations for reliable and safe deployment.
+
+        <br></br>
+
+        I currently am specialised in database systems.
       </p>
       <p className="max-w-xl text-lg text-foreground/70">
       </p>
