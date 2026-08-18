@@ -36,8 +36,8 @@ describe("content", () => {
   });
 
   it("loads a single blog post by slug", () => {
-    const post = getBlogPost("building-this-site");
-    expect(post?.title).toContain("Building this site");
+    const post = getBlogPost("from-onprem-to-cloud");
+    expect(post?.title).toContain("Early notes as a Cloud Engineer");
   });
 
   it("loads all learning log entries", () => {
