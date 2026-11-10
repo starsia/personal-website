@@ -13,7 +13,7 @@ export default function Home() {
         {siteConfig.title}
       </h1>
       <p className="max-w-xl text-lg text-foreground/70">
-        I build full-stack applications, data pipelines and cloud infrastructure. I’m currently a Cloud Engineer, where I write Terraform and sharpen my Linux and Kubernetes skills. I like learning things deeply and commmunicating them clearly to others.
+        I build full-stack applications, data pipelines and cloud infrastructure. I’m currently a Cloud Infrastructure Engineer at NCS, where I manage AWS infrastructure with Terraform and work with Linux and Kubernetes. I like learning things deeply and explaining them clearly to others.
       </p>
       <p className="max-w-xl text-lg text-foreground/70">
       </p>
